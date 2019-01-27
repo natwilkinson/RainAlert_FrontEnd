@@ -1,0 +1,24 @@
+{
+  "name": "rainalert_frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natwilkinson/RainAlert_FrontEnd.git"
+  },
+  "author": "Natalie Wilkinson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/natwilkinson/RainAlert_FrontEnd/issues"
+  },
+  "homepage": "https://github.com/natwilkinson/RainAlert_FrontEnd#readme"
+}
