@@ -14,53 +14,24 @@ pool.on('connect', () => {
   console.log('connected to the db');
 });
 
-/**
- * Create Tables
- */
-const createTables = () => {
-  const queryText =
-    `CREATE TABLE IF NOT EXISTS
-      users(
-        name text,
-        zip text,
-        phone text,
-        low text,
-        high text,
-        rain text,
-        snow text
-      )`;
-
-  pool.query(queryText)
-    .then((res) => {
-      console.log(res);
-      pool.end();
-    })
-    .catch((err) => {
-      console.log(err);
-      pool.end();
-    });
-}
-module.exports = {
-  createTables
-};
-
 //Note that in version 4 of express, express.bodyParser() was
 //deprecated in favor of a separate 'body-parser' module.
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/myaction', function(req, res) {
-    var boolRain = false;
-    var boolSnow = false;
-    if (req.body.rain == "rain") { 
-      boolRain = true;
+    var rain = false;
+    var snow = false;
+    if (req.body.rain == "rain") {
+      rain = true;
     }
     if (req.body.snow == "snow") {
-      boolSnow = true;
+      snow = true;
     }
-    const queryText = "INSERT INTO users VALUES($1, $2, $3, $4, $5, $6, $7);"
-    const values = [req.body.name, req.body.zip, req.body.phone, req.body.cold, req.body.hot, boolRain, boolSnow]
+    const queryText = 'INSERT INTO public."userData" VALUES($1, $2, $3, $4, $5, $6, $7, $8);'
+    //const queryText = 'SELECT * FROM public."userData";'
+    const values = [req.body.zip, req.body.cold, req.body.hot, rain, snow, null, req.body.name, req.body.phone]
 
   pool.query(queryText, values)
     .then((res) => {
@@ -73,7 +44,7 @@ app.post('/myaction', function(req, res) {
     });
 
     console.log('test');
-    var response = 'Name: ' + req.body.name + ' Zip: ' + req.body.zip + ' Phone: ' + req.body.phone + ' Low: ' + req.body.cold + ' High: ' + req.body.hot + ' Rain: ' + req.body.rain + ' Snow: ' + req.body.snow
+    var response = 'Thanks for your information! You will get weather updates by text.'
     res.send(response);
 });
 app.get('/',function(req,res) {
@@ -84,4 +55,3 @@ app.get('/',function(req,res) {
 app.listen(process.env.PORT || 8080, function() {
   console.log('Server running at http://127.0.0.1:8080/');
 });
-
