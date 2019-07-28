@@ -32,21 +32,18 @@ app.post('/myaction', function(req, res) {
     const queryText = 'INSERT INTO public."userData" VALUES($1, $2, $3, $4, $5, $6, $7, $8);'
     //const queryText = 'SELECT * FROM public."userData";'
     const values = [req.body.zip, req.body.cold, req.body.hot, rain, snow, null, req.body.name, req.body.phone]
-    const response = ''
   pool.query(queryText, values)
     .then((res) => {
       console.log(res);
       pool.end();
-      response = res
     })
     .catch((err) => {
       console.log(err);
-      response = err
       pool.end();
     });
 
     console.log('test');
-    //var response = 'Thanks for your information! You will get weather updates by text.'
+    var response = 'Thanks for your information! You will get weather updates by text.'
 
     res.send(response);
 });
