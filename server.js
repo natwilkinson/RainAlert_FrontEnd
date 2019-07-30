@@ -47,11 +47,11 @@ app.post('/myaction', function(req, res) {
   pool.query(queryText, values)
     .then((res) => {
       console.log(res);
-      pool.end();
+      //pool.end();
     })
     .catch((err) => {
       console.log(err);
-      pool.end();
+      //pool.end();
     });
 
 
