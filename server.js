@@ -13,9 +13,7 @@ const pool = new Pool({
 });
 
 // connects to database
-pool.on('connect', () => {
-  console.log('connected to the db');
-});
+
 
 // lisens on port set as environment variable or on 8080
 app.listen(process.env.PORT || 8080, function() {
@@ -32,6 +30,9 @@ app.get('/',function(req,res) {
 app.use(bodyParser.urlencoded({ extended: true })); //for reading info from form
 app.use(express.static(path.join(__dirname, 'public'))); //for displaying CSS
 app.post('/myaction', function(req, res) {
+    pool.on('connect', () => {
+        console.log('connected to the db');
+      });
     var rain = false;
     var snow = false;
     if (req.body.rain == "rain") {
